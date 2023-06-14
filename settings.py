@@ -1,0 +1,2 @@
+GROUP_ID = 220983890
+TOKEN = "vk1.a.EVxwXnNvngMA8ls66GAUjsgk-BJOCuyYvpziyzn_5Cvl8druJld-YpPKvDnSquLXpwG2lycmtUQCxdbVY57nZ4jbSsb51nJa1Tk4hXB4tY-RHjBTLqdAXZCQUzRgebqdKDG4qSSs4wvczjCUI6ze86n_vUrJuQO-8hr8mavusVC77ZNBkghB4wUkq7yxiWVwCsFhS21Potml_Q6K_M-SAQ"
