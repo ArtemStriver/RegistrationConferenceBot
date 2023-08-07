@@ -50,3 +50,10 @@ SCENARIOS = {
 
 DEFAULT_ANSWER = 'Не знаю как на это ответить. ' \
                  'Могу сказать когда и где пройдет конференция, а также зарегистрировать вас. Просто спросите.'
+
+DB_CONFIG = dict(
+    provider='postgres',
+    user='postgres',
+    password='qwerty',
+    host='localhost',
+    database='vk_chat_bot')

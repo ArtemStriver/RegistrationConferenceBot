@@ -1,10 +1,21 @@
 from copy import deepcopy
 from unittest import TestCase
 from unittest.mock import patch, Mock
+
+from pony.orm import db_session, rollback
 from vk_api.bot_longpoll import VkBotMessageEvent
 
 import settings
 from bot import Bot
+
+
+def isolate_db(test_func):
+    def wrapper(*args, **kwargs):
+        with db_session() as session:
+            test_func(*args, **kwargs)
+            rollback()
+
+    return wrapper
 
 
 class Test1(TestCase):
@@ -39,27 +50,6 @@ class Test1(TestCase):
                 bot.on_event.assert_any_call(obj)
                 assert bot.on_event.call_count == count
 
-    # старый тест для эхо-функции, сейчас не актуален
-
-    # def test_on_event(self):
-    #     event = VkBotMessageEvent(raw=self.RAW_EVENT)
-    #
-    #     send_mock = Mock()
-    #
-    #     with patch('bot.vk_api.VkApi'):
-    #         with patch('bot.VkBotLongPoll'):
-    #             bot = Bot('', '')
-    #             bot.api = Mock()
-    #             bot.api.messages.send = send_mock
-    #
-    #             bot.on_event(event=event)
-    #
-    #     send_mock.assert_called_once_with(
-    #         message=self.RAW_EVENT['object']['message']['text'],
-    #         random_id=ANY,
-    #         peer_id=self.RAW_EVENT['object']['message']['peer_id'],
-    #     )
-
     INPUTS = [
         'Привет!',
         'А когда?',
@@ -79,6 +69,7 @@ class Test1(TestCase):
         settings.SCENARIOS['registration']['steps']['step3']['text'].format(name='Веник', email='email@mail.ru')
     ]
 
+    @isolate_db
     def test_run_ok(self):
         send_mock = Mock()
         api_mock = Mock()
