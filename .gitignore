@@ -1,5 +1,5 @@
 .idea
-settings.py
-__pycache__
+settings.py/
+__pycache__/
 venv
 *.log
